@@ -84,13 +84,14 @@ export const analyzeCv = async (req: Request, res: Response): Promise<void> => {
     
     if (req.file.mimetype === 'application/pdf') {
        try {
-         // Using the specific PDFParse class from the library
-         const { PDFParse } = require('pdf-parse');
-         // Convert Buffer to Uint8Array as required by the library
+         // Using unpdf for better serverless support
+         const { getDocumentProxy, extractText } = await import('unpdf');
+         
          const uint8Array = new Uint8Array(req.file.buffer);
-         const parser = new PDFParse(uint8Array);
-         const data = await parser.getText();
-         cvText = data.text;
+         const pdf = await getDocumentProxy(uint8Array);
+         const { text } = await extractText(pdf, { mergePages: true });
+         
+         cvText = Array.isArray(text) ? text.join(' ') : text;
        } catch (error) {
          console.error('PDF Parse Error:', error);
          res.status(500).json({ message: 'Failed to parse PDF file' });
