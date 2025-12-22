@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 export const protect = (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.headers);
   let token;
 
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {

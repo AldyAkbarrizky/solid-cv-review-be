@@ -7,6 +7,8 @@ import cookieParser from 'cookie-parser';
 import UserRoutes from './routes/user.routes';
 import AuthRoutes from './routes/auth.routes';
 import SettingsRoutes from './routes/settings.routes';
+import AnalysisRoutes from './routes/analysis.routes';
+import ContactRoutes from './routes/contact.routes';
 
 class App {
   public app: Application;
@@ -47,6 +49,8 @@ class App {
     this.app.use('/api/users', UserRoutes);
     this.app.use('/api/auth', AuthRoutes);
     this.app.use('/api/settings', SettingsRoutes);
+    this.app.use('/api/analysis', AnalysisRoutes);
+    this.app.use('/api/contact', ContactRoutes);
   }
 }
 

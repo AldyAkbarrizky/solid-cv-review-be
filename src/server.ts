@@ -1,3 +1,6 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import app from "./app";
 import sequelize from "./database";
 
@@ -7,7 +10,7 @@ const start = async () => {
   try {
     await sequelize.authenticate();
     console.log("Database connection has been established successfully.");
-    await sequelize.sync(); // or sync({ force: true }) to drop and re-create tables
+    await sequelize.sync(); // Syncs models to DB, updating table structures if needed
     console.log("All models were synchronized successfully.");
     app.listen(port, () => {
       console.log(`Server is running on port ${port}`);

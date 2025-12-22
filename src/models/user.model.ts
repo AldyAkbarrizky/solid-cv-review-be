@@ -12,6 +12,8 @@ class User extends Model {
   public emailVerificationExpires?: Date;
   public passwordResetToken?: string;
   public passwordResetExpires?: Date;
+  public analysisQuota!: number;
+  public lastQuotaReset!: Date;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -53,6 +55,16 @@ User.init(
     emailVerificationExpires: {
       type: DataTypes.DATE,
       allowNull: true,
+    },
+    analysisQuota: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 5,
+    },
+    lastQuotaReset: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
     passwordResetToken: {
       type: new DataTypes.STRING(128),

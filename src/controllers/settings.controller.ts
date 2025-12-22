@@ -47,6 +47,7 @@ export const getUserSettings = async (
       "email",
       "role",
       "emailVerified",
+      "analysisQuota",
       "createdAt",
       "updatedAt",
     ],
@@ -59,7 +60,7 @@ export const getUserSettings = async (
   const preferences = await ensurePreferences(userId);
 
   const planLabel = user.role === "paid" ? "Akun Pro" : "Akun Gratis";
-  const quota = user.role === "paid" ? 20 : 5;
+  const quota = user.role === "paid" ? 999 : user.analysisQuota;
 
   return ApiResponse.success(res, {
     user,
